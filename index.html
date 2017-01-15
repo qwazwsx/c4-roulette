@@ -41,14 +41,18 @@ width: 70%;
  <script>
 jQuery.ajaxSetup({async:false});
 var list;
-var url;
+var url = "http://146.7.140.249/mjpg/video.mjpg?COUNTER"
 var previousnum = 0;
 
 //gets cam list
 $.ajax({url:'https://gist.githubusercontent.com/turbo/189cde3a5a2847f5be73eab712dd4024/raw/44807377748236e514e4c9b2901489a1b1b2f5c4/c4.txt',success:function(data) {list = data;}});
 
+document.getElementById('cam').src = "http://146.7.140.249/mjpg/video.mjpg?COUNTER"
+start()
+
 //if the image doesnt load, load another one
 document.getElementById('cam').onerror=start
+document.getElementById('cam').onload=refresh
 
 //initial setup
 function start(){
@@ -66,11 +70,16 @@ document.getElementById('previous').innerHTML += '<a target="_blank" style="font
 },document.getElementById('slider').value * 1000)
 
 //refreshes page and fixes resolution
+function refresh(){
+console.log('aaa')
+document.getElementById('cam').src = url + '?' + Math.random() + '#' + Math.random() 
+}
+
 setInterval(function(){
 while ($('#cam').is(':off-right') == false){document.getElementById('cam').width = document.getElementById('cam').width + 1}
 while ($('#cam').is(':off-bottom') == true){document.getElementById('cam').width = document.getElementById('cam').width - 1}
-document.getElementById('cam').src = url + '#' + Math.random()
-},300)
+},1000)
+
 
 //shows fps display
 setInterval(function(){
