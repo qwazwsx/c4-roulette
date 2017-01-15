@@ -6,7 +6,17 @@
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <script src="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed"></script>
+<script src="https://cdn.rawgit.com/claviska/7240757/raw/ec96fc2fd5faf0b3bb849fddc3df29c70d62e00b/jquery.offscreen.js"></script>
+
+
 <style>
+body {
+  background: radial-gradient(#222922, #000500);
+  }
+  p {
+  color: #47B247;
+  }
+  a {text-decoration: none;}
 footer {
     bottom: 0;
     left: 0;
@@ -28,22 +38,23 @@ width: 70%;
 <body>
 <center>
 <img id='cam'>
-
 <div><input id="slider" class="mdl-slider mdl-js-slider" type="range"
   min="0" max="60" value="15" ></div>
- 
 <p style="font-family: 'Roboto', sans-serif; "id="value"></p>
-
- <p id="previous">log:<br></p>
- <p class="footer">made by /u/thisisatesttoseehowl, thanks to <a href="https://github.com/turbo/c4">turbo/c4 for the cams list, </a> this is licenced under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+<p id="previous">log:<br></p>
+<p class="footer">made by /u/thisisatesttoseehowl, thanks to <a href="https://github.com/turbo/c4">turbo/c4 for the cams list</a>. this is licenced under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
 </center>
  
  <script>
- 
 jQuery.ajaxSetup({async:false});
 var list;
 var url;
 var previousnum = 0;
+
+//makes proper resizing of images
+while ($('#cam').is(':off-bottom') == true){
+document.getElementById('cam').width = document.getElementById('cam').width - 1
+}
 
 //gets cam list
 $.ajax({url:'https://gist.githubusercontent.com/turbo/189cde3a5a2847f5be73eab712dd4024/raw/44807377748236e514e4c9b2901489a1b1b2f5c4/c4.txt',success:function(data) {list = data;}});
@@ -65,7 +76,7 @@ previousnum++;
 document.getElementById('previous').innerHTML += '<a target="_blank" style="font-family: \'Roboto Condensed\', sans-serif;" href="' + url + '">' + previousnum + '</a><br>'
 },document.getElementById('slider').value * 1000)
 
-//sets a refresh rate of about 60fps
+//sets a refresh rate
 setInterval(function(){
 document.getElementById('cam').src = url + '#' + Math.random()
 },300)
@@ -74,42 +85,6 @@ document.getElementById('cam').src = url + '#' + Math.random()
 setInterval(function(){
 document.getElementById('value').innerHTML = document.getElementById('slider').value + ' second(s) until switch'
 },100)
-
-
-function getDomain(url){
-var string = url,
-    substring = "https://";
-if (string.indexOf(substring) !== -1){
-
-var s = url.replace(/https:\/\//g,'');
-urlIP = s.substring(0, s.indexOf('/'));
-}
-
-if (string.indexOf(substring) !== 0){
-var s = url.replace(/http:\/\//g,'');
-urlIP = s.substring(0, s.indexOf('/'));
-}
-
-var string = urlIP,
-    substring = ":";
-if (string.indexOf(substring) !== -1){
-urlIP = urlIP.substring(0, urlIP.indexOf(':'))
-}
-return urlIP;
-};
-
-function getIPInfo(url){
-$.getJSON('https://api.ipinfodb.com/v3/ip-city/?key=e29b04eb4855182960b55e3784dc53ef7b68cc1317aae711a0453f5e15853fb5&ip=' + getDomain(url) + '&format=json', function(data) {
-
-var objJSON = eval("(function(){return " + JSON.stringify(data) + ";})()");
-document.getElementById("country").innerHTML = objJSON.countryName
-document.getElementById("region").innerHTML = objJSON.regionName
-document.getElementById("city").innerHTML = objJSON.cityName
-});
-
-}
-
-
 
  </script>
 </body>
