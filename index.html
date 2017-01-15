@@ -56,10 +56,11 @@ document.getElementById('cam').onload=refresh
 
 //initial setup
 function start(){
-console.log('asdasd')
+console.log('start')
 url = list.split("\n")[Math.floor(Math.random() * list.split("\n").length) + 0]
 previousnum++;
 document.getElementById('previous').innerHTML += '<a target="_blank" style="font-family: \'Roboto Condensed\', sans-serif;" href="' + url + '">' + previousnum + '</a>,'
+refresh()
 }
 
 //shows a new video every <slider> seconds
@@ -76,7 +77,7 @@ while ($('#cam').is(':off-right') == false){document.getElementById('cam').width
 while ($('#cam').is(':off-bottom') == true){document.getElementById('cam').width = document.getElementById('cam').width - 1}
 }
 
-
+setInterval(refresh,1000)
 
 //shows fps display
 setInterval(function(){
