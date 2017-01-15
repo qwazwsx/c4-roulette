@@ -73,12 +73,10 @@ document.getElementById('previous').innerHTML += '<a target="_blank" style="font
 function refresh(){
 console.log('aaa')
 document.getElementById('cam').src = url + '?' + Math.random() + '#' + Math.random() 
-}
-
-setInterval(function(){
 while ($('#cam').is(':off-right') == false){document.getElementById('cam').width = document.getElementById('cam').width + 1}
 while ($('#cam').is(':off-bottom') == true){document.getElementById('cam').width = document.getElementById('cam').width - 1}
-},1000)
+}
+
 
 
 //shows fps display
