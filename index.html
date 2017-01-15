@@ -71,8 +71,7 @@ document.getElementById('previous').innerHTML += '<a target="_blank" style="font
 
 //refreshes page and fixes resolution
 function refresh(){
-console.log('aaa')
-document.getElementById('cam').src = url + '?' + Math.random() + '#' + Math.random() 
+document.getElementById('cam').src = url + '&?' + Math.random() + '#' + Math.random() 
 while ($('#cam').is(':off-right') == false){document.getElementById('cam').width = document.getElementById('cam').width + 1}
 while ($('#cam').is(':off-bottom') == true){document.getElementById('cam').width = document.getElementById('cam').width - 1}
 }
