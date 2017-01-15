@@ -30,7 +30,7 @@ width: 70%;
 </head>
 <body>
 <center>
-<img id='cam'>
+<img src="http://146.7.140.249/mjpg/video.mjpg?COUNTER" id='cam'>
 <div><input id="slider" class="mdl-slider mdl-js-slider" type="range" min="10" max="60" value="15"></div>
 <p style="font-family: 'Roboto', sans-serif; "id="value"></p>
 <p id="previous">log:<br></p>
@@ -40,7 +40,7 @@ width: 70%;
  <script>
 jQuery.ajaxSetup({async:false});
 var list;
-var url;
+var url = "http://146.7.140.249/mjpg/video.mjpg?COUNTER"
 var previousnum = 0;
 
 //gets cam list
@@ -73,7 +73,7 @@ document.getElementById('cam').src = url + '#' + Math.random()
 
 //shows fps display
 setInterval(function(){
-document.getElementById('value').innerHTML = document.getElementById('slider').value + ' second(s) until switch'
+document.getElementById('value').innerHTML = 'switch cams every ' + document.getElementById('slider').value + ' seconds'
 },100)
 
  </script>
