@@ -10,10 +10,11 @@
 <script src="https://cdn.rawgit.com/claviska/7240757/raw/ec96fc2fd5faf0b3bb849fddc3df29c70d62e00b/jquery.offscreen.js"></script>
 <style>
 body {
-  background: radial-gradient(#222922, #000500);
+  background: radial-gradient(#394539, #000500);
   }
   p {
   color: #47B247;
+  word-wrap: break-word;
   }
   a {text-decoration: none;}
 footer {
@@ -40,7 +41,7 @@ width: 70%;
  <script>
 jQuery.ajaxSetup({async:false});
 var list;
-var url = "http://146.7.140.249/mjpg/video.mjpg?COUNTER"
+var url;
 var previousnum = 0;
 
 //gets cam list
@@ -67,7 +68,7 @@ document.getElementById('previous').innerHTML += '<a target="_blank" style="font
 //refreshes page and fixes resolution
 setInterval(function(){
 while ($('#cam').is(':off-right') == false){document.getElementById('cam').width = document.getElementById('cam').width + 1}
-while ($('#cam').is(':off-right') == true){document.getElementById('cam').width = document.getElementById('cam').width - 1}
+while ($('#cam').is(':off-bottom') == true){document.getElementById('cam').width = document.getElementById('cam').width - 1}
 document.getElementById('cam').src = url + '#' + Math.random()
 },300)
 
