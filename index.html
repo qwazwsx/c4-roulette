@@ -54,14 +54,14 @@ function start(){
 console.log('asdasd')
 url = list.split("\n")[Math.floor(Math.random() * list.split("\n").length) + 0]
 previousnum++;
-document.getElementById('previous').innerHTML += '<a target="_blank" style="font-family: \'Roboto Condensed\', sans-serif;" href="' + url + '">' + previousnum + '</a><br>'
+document.getElementById('previous').innerHTML += '<a target="_blank" style="font-family: \'Roboto Condensed\', sans-serif;" href="' + url + '">' + previousnum + '</a>,'
 }
 
 //shows a new video every <slider> seconds
 setInterval(function(){
 url = list.split("\n")[Math.floor(Math.random() * list.split("\n").length) + 0]
 previousnum++;
-document.getElementById('previous').innerHTML += '<a target="_blank" style="font-family: \'Roboto Condensed\', sans-serif;" href="' + url + '">' + previousnum + '</a><br>'
+document.getElementById('previous').innerHTML += '<a target="_blank" style="font-family: \'Roboto Condensed\', sans-serif;" href="' + url + '">' + previousnum + '</a>,'
 },document.getElementById('slider').value * 1000)
 
 //refreshes page and fixes resolution
