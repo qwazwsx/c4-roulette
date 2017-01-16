@@ -74,7 +74,7 @@ document.getElementById('previous').innerHTML += '<a target="_blank" style="font
 function refresh(){
 document.getElementById('cam').src = url + '#&?' + Math.random() + '#' + Math.random() 
 while ($('#cam').is(':off-right') == false){document.getElementById('cam').width = document.getElementById('cam').width + 1}
-document.getElementById('cam').width = document.getElementById('cam').width + 1
+document.getElementById('cam').width = document.getElementById('cam').width - 1
 while ($('#cam').is(':off-bottom') == true){document.getElementById('cam').width = document.getElementById('cam').width - 1}
 }
 
