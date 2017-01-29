@@ -40,6 +40,8 @@ width: 70%;
  
  <script>
 jQuery.ajaxSetup({async:false});
+setTimeout(function(){   
+
 var list;
 var url;
 var previousnum = 0;
@@ -85,7 +87,7 @@ setInterval(refresh,1000)
 setInterval(function(){
 document.getElementById('value').innerHTML = 'switch cams every ' + document.getElementById('slider').value + ' seconds'
 },100)
-
+},3000);
  </script>
 </body>
 </html>
