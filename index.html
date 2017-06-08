@@ -3,9 +3,7 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.green-pink.min.css" />
-<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <script src="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed"></script>
 <script src="https://cdn.rawgit.com/claviska/7240757/raw/ec96fc2fd5faf0b3bb849fddc3df29c70d62e00b/jquery.offscreen.js"></script>
 <style>
@@ -32,62 +30,59 @@ width: 70%;
 <body>
 <center>
 <img  id='cam'>
-<div><input id="slider" class="mdl-slider mdl-js-slider" type="range" min="10" max="60" value="15"></div>
-<p style="font-family: 'Roboto', sans-serif; "id="value"></p>
-<p id="previous">log:<br></p>
-<p class="footer">made by /u/thisisatesttoseehowl, thanks to <a href="https://github.com/turbo/c4">turbo/c4 for the cams list</a>. this is licenced under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+<p id="log">log:<br></p>
+<p class="footer">made by <a href="https://www.reddit.com/user/thisisatesttoseehowl/">/u/thisisatesttoseehowl</a> v2 6/7/17, thanks to <a href="https://github.com/turbo/c4">turbo/c4 for the cams list</a>, <a href="https://github.com/claviska/jquery-offscreen">claviska/jquery-offscreen</a>, and <a href="https://getmdl.io/started/">Material Design Lite</a>. <br> licenced under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
 </center>
  
  <script>
-jQuery.ajaxSetup({async:false});
-setTimeout(function(){   
+  
 
 var list;
 var url;
-var previousnum = 0;
+var loaded = ''
 
-//gets cam list
-$.ajax({url:'https://gist.githubusercontent.com/turbo/189cde3a5a2847f5be73eab712dd4024/raw/44807377748236e514e4c9b2901489a1b1b2f5c4/c4.txt',success:function(data) {list = data;}});
-
-start()
-
-//if the image doesnt load, load another one
-document.getElementById('cam').onerror=start
-document.getElementById('cam').onload=refresh
-
-//initial setup
-function start(){
-console.log('start')
-url = list.split("\n")[Math.floor(Math.random() * list.split("\n").length) + 0]
-previousnum++;
-document.getElementById('previous').innerHTML += '<a target="_blank" style="font-family: \'Roboto Condensed\', sans-serif;" href="' + url + '">' + previousnum + '</a>,'
-refresh()
-}
-
-//shows a new video every <slider> seconds
-setInterval(function(){
-url = list.split("\n")[Math.floor(Math.random() * list.split("\n").length) + 0]
-previousnum++;
-document.getElementById('previous').innerHTML += '<a target="_blank" style="font-family: \'Roboto Condensed\', sans-serif;" href="' + url + '">' + previousnum + '</a>,'
-},document.getElementById('slider').value * 1000)
-
-//refreshes page and fixes resolution
-function refresh(){
-document.getElementById('cam').src = url + '#&?' + Math.random() + '#' + Math.random() 
+//when an image is loaded add its url to this list
+document.getElementById('cam').onload = function () {
+loaded += url
+console.log('loaded <'+url+'>')
+document.getElementById('log').innerHTML += '<a href="'+url+'">'+url+'</a><br>';
+//resize
 if (!$(window).scrollTop()){
-while ($('#cam').is(':off-right') == false){document.getElementById('cam').width = document.getElementById('cam').width + 1}
+while ($('#cam').is(':off-right') == true){document.getElementById('cam').width = document.getElementById('cam').width - 1}
 document.getElementById('cam').width = document.getElementById('cam').width - 1
 while ($('#cam').is(':off-bottom') == true){document.getElementById('cam').width = document.getElementById('cam').width - 1}
 }
+};
+
+//gets cam list
+$.ajax({url:'https://gist.githubusercontent.com/turbo/189cde3a5a2847f5be73eab712dd4024/raw/44807377748236e514e4c9b2901489a1b1b2f5c4/c4.txt',success:function(data){
+list = data;
+update();
+}});
+
+function update(){
+console.log('rand')
+//get random url
+url = list.split("\n")[Math.floor(Math.random() * list.split("\n").length) + 0]
+document.getElementById('cam').src = url;
+console.log('loading <'+url+'>')
+
+//if the image is not loaded in 7 seconds load another one 
+//this is because the many cameras are on shit connections/are dead links
+setTimeout(function(){
+console.log(loaded)
+if (loaded.indexOf(url) == -1){
+console.log('error loading <'+url+'>')
+update();
+}else{
+setTimeout(update,10000);
+}
+},7000)
+
 }
 
-setInterval(refresh,1000)
 
-//shows fps display
-setInterval(function(){
-document.getElementById('value').innerHTML = 'switch cams every ' + document.getElementById('slider').value + ' seconds'
-},100)
-},3000);
+
  </script>
 </body>
 </html>
