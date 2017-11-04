@@ -31,6 +31,7 @@ width: 70%;
 <center>
 <img  id='cam'>
 <br><button id="next">next</button>
+<br><button id="cycle">cycle every 15 seconds</button>
 <p id="log">log:<br></p>
 <p class="footer">made by <a href="https://www.reddit.com/user/thisisatesttoseehowl/">/u/thisisatesttoseehowl</a> v3 11/4/17, thanks to <a href="https://github.com/turbo/c4">turbo/c4 for the cams list</a>, <a href="https://github.com/claviska/jquery-offscreen">claviska/jquery-offscreen</a>, and <a href="https://getmdl.io/started/">Material Design Lite</a>. <br> licenced under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
 </center>
@@ -41,7 +42,8 @@ width: 70%;
 var list;
 var url;
 var loaded = ''
-
+var cycle = false;
+var time = 15;
 //when an image is loaded add its url to this list
 document.getElementById('cam').onload = function () {
 loaded += url
@@ -73,16 +75,47 @@ console.log('loading <'+url+'>')
 setTimeout(function(){
 console.log(loaded)
 if (loaded.indexOf(url) == -1){
+time=15;
 console.log('error loading <'+url+'>')
 document.getElementById('log').innerHTML += '<a href="'+url+'">'+"error loading "+url+'</a><br>';
 update();
 }
-},7000)
+},3000)
 
+if (cycle){
+if (time <= 0){ 
+console.log('a')
+setTimeout(function(){update();},15000);
+}}
+
+time=15;
 }
 
 document.getElementById("next").onclick = update;
+document.getElementById("cycle").onclick = function(){
+if (cycle){
+cycle=false;
+}else{
+cycle=true;
+setTimeout(function(){update();},15000);
+}
+}
 
+
+setInterval(function(){
+if (cycle){
+time--;
+document.getElementById("cycle").innerHTML = time+"..."
+
+}else{
+time=15;
+document.getElementById("cycle").innerHTML = "cycle every 15 seconds"
+}
+
+
+
+
+},1000)
 
  </script>
 </body>
