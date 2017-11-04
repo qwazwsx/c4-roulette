@@ -30,8 +30,9 @@ width: 70%;
 <body>
 <center>
 <img  id='cam'>
+<br><button id="next">next</button>
 <p id="log">log:<br></p>
-<p class="footer">made by <a href="https://www.reddit.com/user/thisisatesttoseehowl/">/u/thisisatesttoseehowl</a> v2 6/7/17, thanks to <a href="https://github.com/turbo/c4">turbo/c4 for the cams list</a>, <a href="https://github.com/claviska/jquery-offscreen">claviska/jquery-offscreen</a>, and <a href="https://getmdl.io/started/">Material Design Lite</a>. <br> licenced under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+<p class="footer">made by <a href="https://www.reddit.com/user/thisisatesttoseehowl/">/u/thisisatesttoseehowl</a> v3 11/4/17, thanks to <a href="https://github.com/turbo/c4">turbo/c4 for the cams list</a>, <a href="https://github.com/claviska/jquery-offscreen">claviska/jquery-offscreen</a>, and <a href="https://getmdl.io/started/">Material Design Lite</a>. <br> licenced under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
 </center>
  
  <script>
@@ -73,14 +74,14 @@ setTimeout(function(){
 console.log(loaded)
 if (loaded.indexOf(url) == -1){
 console.log('error loading <'+url+'>')
+document.getElementById('log').innerHTML += '<a href="'+url+'">'+"error loading "+url+'</a><br>';
 update();
-}else{
-setTimeout(update,10000);
 }
 },7000)
 
 }
 
+document.getElementById("next").onclick = update;
 
 
  </script>
