@@ -1,122 +1,150 @@
 <!--made by /u/thisisatesttoseehowl-->
 
 <html>
+
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.green-pink.min.css" />
-<script src="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed"></script>
-<script src="https://cdn.rawgit.com/claviska/7240757/raw/ec96fc2fd5faf0b3bb849fddc3df29c70d62e00b/jquery.offscreen.js"></script>
-<style>
-body {
-  background: radial-gradient(#394539, #000500);
-  }
-  p {
-  color: #47B247;
-  word-wrap: break-word;
-  }
-  a {text-decoration: none;}
-footer {
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0;
-    text-align: center;
-}
-div {
-width: 70%;
-}
-</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.green-pink.min.css" />
+    <script src="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed"></script>
+    <script src="https://cdn.rawgit.com/claviska/7240757/raw/ec96fc2fd5faf0b3bb849fddc3df29c70d62e00b/jquery.offscreen.js"></script>
+    <style>
+        body {
+            background: radial-gradient(#394539, #000500);
+        }
+
+        p {
+            color: #47B247;
+            word-wrap: break-word;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        footer {
+            bottom: 0;
+            left: 0;
+            position: fixed;
+            right: 0;
+            text-align: center;
+        }
+
+        div {
+            width: 70%;
+        }
+    </style>
 </head>
+
 <body>
-<center>
-<img  id='cam'>
-<br><button id="next">next</button>
-<br><button id="cycle">cycle every 15 seconds</button>
-<p id="log">log:<br></p>
-<p class="footer">made by <a href="https://www.reddit.com/user/thisisatesttoseehowl/">/u/thisisatesttoseehowl</a> v3 11/4/17, thanks to <a href="https://github.com/turbo/c4">turbo/c4 for the cams list</a>, <a href="https://github.com/claviska/jquery-offscreen">claviska/jquery-offscreen</a>, and <a href="https://getmdl.io/started/">Material Design Lite</a>. <br> licenced under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
-</center>
- 
- <script>
-  
+    <center>
+        <img id='cam'>
+        <p id="location"></p>
+        <br><button id="next">next</button>
+        <br><button id="cycle">cycle every 15 seconds</button>
+        <p id="log">log:<br></p>
+        <p class="footer">made by <a href="https://www.reddit.com/user/thisisatesttoseehowl/">/u/thisisatesttoseehowl</a> v3.1 11/4/17, thanks to <a href="https://github.com/turbo/c4">turbo/c4 for the cams list</a>, <a href="https://github.com/claviska/jquery-offscreen">claviska/jquery-offscreen</a>, and <a href="https://getmdl.io/started/">Material Design Lite</a>. <br> licenced under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+    </center>
 
-var list;
-var url;
-var loaded = ''
-var cycle = false;
-var time = 15;
-//when an image is loaded add its url to this list
-document.getElementById('cam').onload = function () {
-loaded += url
-console.log('loaded <'+url+'>')
-document.getElementById('log').innerHTML += '<a href="'+url+'">'+url+'</a><br>';
-//resize
-if (!$(window).scrollTop()){
-while ($('#cam').is(':off-right') == true){document.getElementById('cam').width = document.getElementById('cam').width - 1}
-document.getElementById('cam').width = document.getElementById('cam').width - 1
-while ($('#cam').is(':off-bottom') == true){document.getElementById('cam').width = document.getElementById('cam').width - 1}
-}
-};
+    <script>
+        var list;
+        var url;
+        var loaded = ''
+        var cycle = false;
+        var time = 15;
+        //when an image is loaded add its url to this list
+        document.getElementById('cam').onload = function() {
+            loaded += url
+            console.log('loaded <' + url + '>')
+            document.getElementById('log').innerHTML += '<a href="' + url + '">' + url + '</a><br>';
+            //resize
+            if (!$(window).scrollTop()) {
+                while ($('#cam').is(':off-right') == true) {
+                    document.getElementById('cam').width = document.getElementById('cam').width - 1
+                }
+                document.getElementById('cam').width = document.getElementById('cam').width - 1
+                while ($('#cam').is(':off-bottom') == true) {
+                    document.getElementById('cam').width = document.getElementById('cam').width - 1
+                }
+            }
+        };
 
-//gets cam list
-$.ajax({url:'https://gist.githubusercontent.com/turbo/189cde3a5a2847f5be73eab712dd4024/raw/44807377748236e514e4c9b2901489a1b1b2f5c4/c4.txt',success:function(data){
-list = data;
-update();
-}});
+        //gets cam list
+        $.ajax({
+            url: 'https://gist.githubusercontent.com/turbo/189cde3a5a2847f5be73eab712dd4024/raw/44807377748236e514e4c9b2901489a1b1b2f5c4/c4.txt',
+            success: function(data) {
+                list = data;
+                update();
+            }
+        });
 
-function update(){
-console.log('rand')
-//get random url
-url = list.split("\n")[Math.floor(Math.random() * list.split("\n").length) + 0]
-document.getElementById('cam').src = url;
-console.log('loading <'+url+'>')
+        function update() {
+            console.log('rand')
+            //get random url
+            url = list.split("\n")[Math.floor(Math.random() * list.split("\n").length) + 0]
+            document.getElementById('cam').src = url;
+            console.log('loading <' + url + '>')
+			
+			
+			
+			$.ajax({
+            url: 'https://api.ipinfodb.com/v3/ip-city/?key=e29b04eb4855182960b55e3784dc53ef7b68cc1317aae711a0453f5e15853fb5&ip='+url.split('/')[2].split(':')[0]+'&format=json',
+            success: function(location) {
+                document.getElementById('location').innerHTML = location.cityName + ',' + location.regionName + ' ' + location.countryName;
+            }
+        });
 
-//if the image is not loaded in 7 seconds load another one 
-//this is because the many cameras are on shit connections/are dead links
-setTimeout(function(){
-console.log(loaded)
-if (loaded.indexOf(url) == -1){
-time=15;
-console.log('error loading <'+url+'>')
-document.getElementById('log').innerHTML += '<a href="'+url+'">'+"error loading "+url+'</a><br>';
-update();
-}
-},7000)
+            //if the image is not loaded in 7 seconds load another one 
+            //this is because the many cameras are on shit connections/are dead links
+            setTimeout(function() {
+                console.log(loaded)
+                if (loaded.indexOf(url) == -1) {
+                    time = 15;
+                    console.log('error loading <' + url + '>')
+                    document.getElementById('log').innerHTML += '<a href="' + url + '">' + "error loading " + url + '</a><br>';
+                    update();
+                }
+            }, 7000)
 
-if (cycle){
-if (time <= 0){ 
-console.log('a')
-setTimeout(function(){update();},15000);
-}}
+            if (cycle) {
+                if (time <= 0) {
+                    console.log('a')
+                    setTimeout(function() {
+                        update();
+                    }, 15000);
+                }
+            }
 
-time=15;
-}
+            time = 15;
+        }
 
-document.getElementById("next").onclick = update;
-document.getElementById("cycle").onclick = function(){
-if (cycle){
-cycle=false;
-}else{
-cycle=true;
-setTimeout(function(){update();},15000);
-}
-}
-
-
-setInterval(function(){
-if (cycle){
-time--;
-document.getElementById("cycle").innerHTML = time+"..."
-
-}else{
-time=15;
-document.getElementById("cycle").innerHTML = "cycle every 15 seconds"
-}
+        document.getElementById("next").onclick = update;
+        document.getElementById("cycle").onclick = function() {
+            if (cycle) {
+                cycle = false;
+            } else {
+                cycle = true;
+                setTimeout(function() {
+                    update();
+                }, 15000);
+            }
+        }
 
 
+        setInterval(function() {
+            if (cycle) {
+                time--;
+                document.getElementById("cycle").innerHTML = time + "..."
+
+            } else {
+                time = 15;
+                document.getElementById("cycle").innerHTML = "cycle every 15 seconds"
+            }
 
 
-},1000)
 
- </script>
+
+        }, 1000)
+    </script>
 </body>
+
 </html>
